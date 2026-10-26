@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: stina-uchasnykiv
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install
+    startCommand: node server-pg.js
+    envVars:
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: stina-db
+          property: connectionString
+
+databases:
+  - name: stina-db
+    databaseName: stina
+    plan: free
+    region: frankfurt
